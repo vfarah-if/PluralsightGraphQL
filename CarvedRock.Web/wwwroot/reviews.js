@@ -8,7 +8,6 @@ function renderReviews(productId) {
     const query = Apollo.gql`
     query reviewsForProducts($productId: ID!) 
     {
-
         reviews(productId: $productId) {
             title
             review
