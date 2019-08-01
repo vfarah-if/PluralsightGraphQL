@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using CarvedRock.Web.Models;
-using GraphQL.Client;
+using GraphQL.Client.Http;
 using GraphQL.Common.Request;
 using GraphQL.Common.Response;
-using Newtonsoft.Json;
 
 namespace CarvedRock.Web.Clients
 {
     public class ProductGraphClient
     {
-        private readonly GraphQLClient _client;
+        private readonly GraphQLHttpClient _client;
 
-        public ProductGraphClient(GraphQLClient client)
+        public ProductGraphClient(GraphQLHttpClient client)
         {
             _client = client;
         }
@@ -29,7 +28,7 @@ namespace CarvedRock.Web.Clients
                 }",
                 Variables = new {productId = id}
             };
-            var response = await _client.PostAsync(query);
+            var response = await _client.SendQueryAsync(query);
             return response.GetDataFieldAs<ProductModel>("product");
         }
 
@@ -47,7 +46,7 @@ namespace CarvedRock.Web.Clients
                 }",
                 Variables = new { review }
             };
-            var response = await _client.PostAsync(query);
+            var response = await _client.SendMutationAsync(query);
             var reviewReturned = response.GetDataFieldAs<ProductReviewModel>("createReview");
         }
 
