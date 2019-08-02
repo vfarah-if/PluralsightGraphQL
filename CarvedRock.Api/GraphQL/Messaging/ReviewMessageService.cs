@@ -9,7 +9,8 @@ namespace CarvedRock.Api
     public class ReviewMessageService
 
     {
-        private readonly ISubject<ReviewAddedMessage> _messageStream = new ReplaySubject<ReviewAddedMessage>(1);
+        private readonly ISubject<ReviewAddedMessage> _messageStream 
+            = new ReplaySubject<ReviewAddedMessage>(1);
 
         public ReviewAddedMessage AddReviewAddedMessage(ProductReview review)
         {
